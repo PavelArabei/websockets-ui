@@ -9,6 +9,7 @@ export interface RegDataRes {
   error: boolean
   errorText: string
 }
+
 export interface LoginReq {
   type: 'reg'
   data: RegDataReq

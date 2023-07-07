@@ -42,7 +42,7 @@ export interface PlayerTernDataRes {
 }
 export interface PlayerTernRes {
   type: 'turn'
-  currentPlayer: number
+  data: PlayerTernDataRes
   id: 0
 }
 
@@ -51,6 +51,12 @@ export interface FinishGameDataRes {
 }
 export interface FinishGameRes {
   type: 'finish'
-  winPlayer: number
+  data: FinishGameDataRes
   id: 0
+}
+
+export interface Game {
+  idGame: number
+  idPlayerOne: number
+  idPlayerTwo: number
 }

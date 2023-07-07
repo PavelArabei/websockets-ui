@@ -1,4 +1,8 @@
-export type TypeForRoom = 'create_room' | 'add_player_to_room' | 'create_game' | 'update_room'
+export type TypeForRoom =
+  | 'create_room'
+  | 'add_user_to_room'
+  | 'create_game'
+  | 'update_room'
 export interface NewRoomReq {
   type: 'create_room'
   data: ''
@@ -10,7 +14,7 @@ export interface PlayerToRoomDataReq {
 }
 
 export interface PlayerToRoomReq {
-  type: 'add_player_to_room'
+  type: 'add_user_to_room'
   data: PlayerToRoomDataReq
   id: 0
 }
@@ -28,13 +32,13 @@ export interface RoomUser {
   name: string
   index: number
 }
-export interface RoomInfo {
+export interface Room {
   roomId: number
   roomUsers: RoomUser[]
 }
 
 export interface RoomStateRes {
   type: 'update_room'
-  data: RoomInfo[]
+  data: Room[]
   id: 0
 }
