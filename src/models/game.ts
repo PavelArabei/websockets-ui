@@ -1,16 +1,21 @@
+import { Ship } from './sheeps.js'
+import { Coordinates } from '../utils/crateObects.js'
+
 export type TypeForGame = 'attack' | 'randomAttack' | 'turn' | 'finish'
 
 export interface AttackDataReq {
-  gameID: number
+  gameId: number
   x: number
   y: number
   indexPlayer: number
 }
 
+export type ShutStatus = 'miss' | 'killed' | 'shot'
+
 export interface AttackDataRes {
-  position: { x: number; y: number }
+  position: Coordinates
   currentPlayer: number
-  status: 'miss' | 'killed' | 'shot'
+  status: ShutStatus
 }
 export interface AttackReq {
   type: 'attack'
@@ -54,9 +59,29 @@ export interface FinishGameRes {
   data: FinishGameDataRes
   id: 0
 }
+export interface PlayerFields {
+  playerId: number
+  matrixBattlefield: Battlefield
+  frontBattlefield: Ship[]
+  shoutedCount: number
+}
 
 export interface Game {
   idGame: number
   idPlayerOne: number
   idPlayerTwo: number
+  fields: {
+    [key: string]: PlayerFields
+    // playerTwo: PlayerFields
+  }
+  turnIndex: number
+}
+
+export type Battlefield = number[][]
+
+export interface HitRegister {
+  battlefield: Battlefield
+  x: number
+  y: number
+  currentPlayer: number
 }
