@@ -31,7 +31,7 @@ export interface AttackRes {
 ////////////////////////////////////////////////////
 
 export interface RandomAttackDataReq {
-  gameID: number
+  gameId: number
   indexPlayer: number
 }
 

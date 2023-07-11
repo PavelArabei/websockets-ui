@@ -1,4 +1,6 @@
 import { AttackDataRes, Battlefield, HitRegister, ShutStatus } from '../models/game.js'
+import { Coordinates } from './crateObects.js'
+import crypto from 'crypto'
 
 const VHDirections = [
   [-1, 0],
@@ -66,19 +68,11 @@ export const isShipDestroyed = (
   y: number,
   directions: number[][],
 ): boolean => {
-  console.log(directions)
-
   for (const [dx, dy] of directions) {
     const newRow = x + dx
     const newCol = y + dy
-    console.log(`pre New Row = ${newRow}`)
-    console.log(`pre New column = ${newCol}`)
 
     if (isNotCrossField(newRow, newCol, battleField)) {
-      console.table(battleField)
-      console.log(`columl = ${newCol}`)
-      console.log(`row= ${newRow}`)
-      console.log(battleField[newCol][newRow])
       if (battleField[newCol][newRow] === 1) {
         return false
       }
@@ -231,7 +225,6 @@ export const hitRegistration = (
     battlefield[y][x] = 2
   } else if (target === 1) {
     const isKill = isShipDestroyed(battlefield, x, y, VHDirections)
-    console.log(isKill)
     if (isKill) {
       const killedField = createAttackObj(x, y, currentPlayer, 'killed')
       result.push(killedField)
@@ -286,4 +279,21 @@ export const getCoordinates = (
       result.push(data)
     }
   }
+}
+
+export const randomInit = (): number => crypto.randomInt(0, 10)
+
+export const getAvailableCoordinates = (battleField: Battlefield): Coordinates => {
+  let coordinates: Coordinates
+  const y = randomInit()
+  const x = randomInit()
+  const coordinatesValue = battleField[y][x]
+
+  if (coordinatesValue === 0 || coordinatesValue === 1) {
+    coordinates = { x, y }
+  } else {
+    coordinates = getAvailableCoordinates(battleField)
+  }
+
+  return coordinates
 }

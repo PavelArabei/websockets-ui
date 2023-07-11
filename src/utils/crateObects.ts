@@ -1,5 +1,4 @@
 import { Battlefield, Game, HitRegister } from '../models/game.js'
-import { generateUniNumb } from './generateUniNumb.js'
 import { PlayerToRoomDataRes, Room } from '../models/room.js'
 import { RegDataRes } from '../models/player.js'
 import { ShipResData } from '../models/sheeps.js'
@@ -9,7 +8,7 @@ export const createGameObj = (
   secondPlayerIndex: number,
 ): Game => {
   return {
-    idGame: generateUniNumb(6),
+    idGame: firstPlayerIndex,
     idPlayerOne: firstPlayerIndex,
     idPlayerTwo: secondPlayerIndex,
     fields: {
@@ -52,7 +51,17 @@ export const getFirstPlayerData = (
   }
 }
 
-export const getUser = (name: string, id: number): RegDataRes => {
+export const getUser = (
+  name: string,
+  password: string,
+  id: number,
+  users: RegDataRes[],
+): RegDataRes | undefined => {
+  if (password.length < 5 || name.length < 5) return
+
+  const userIndex = users.findIndex((user) => user.name === name)
+  if (userIndex !== -1) return
+
   return {
     name,
     index: id,
