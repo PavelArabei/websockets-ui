@@ -27,9 +27,9 @@ export const wsServerController = (ws: MyWebSocket) => {
     } else if (type === 'add_user_to_room') {
       handler.createGame(data as PlayerToRoomDataReq, ws)
     } else if (type === 'add_ships') {
-      handler.addShipLocation(data as ShipReqData, ws)
+      handler.addShipLocation(data as ShipReqData)
     } else if (type === 'attack') {
-      handler.changeTurn(data as AttackDataReq, ws)
+      handler.changeTurn(data as AttackDataReq)
     } else if (type === 'randomAttack') {
       handler.randomAttack(data as RandomAttackDataReq, ws)
     }

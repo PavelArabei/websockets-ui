@@ -83,7 +83,7 @@ export class WsServerHandler {
     this.updateRoom()
   }
 
-  public addShipLocation = (message: ShipReqData, ws: MyWebSocket) => {
+  public addShipLocation = (message: ShipReqData) => {
     const { gameId, ships, indexPlayer } = message
     const battleField = generateBattlefield(ships)
 
@@ -112,7 +112,7 @@ export class WsServerHandler {
     }
   }
 
-  public changeTurn(message: AttackDataReq, ws: MyWebSocket) {
+  public changeTurn(message: AttackDataReq) {
     const { gameId, indexPlayer, x, y } = message
     const game = this.findGame(gameId)
     if (!game) return
@@ -152,7 +152,7 @@ export class WsServerHandler {
     const { x, y } = getAvailableCoordinates(battlefield)
     const attackData: AttackDataReq = { gameId, x, y, indexPlayer }
 
-    this.changeTurn(attackData, ws)
+    this.changeTurn(attackData)
   }
 
   private finishGame(winPlayer: number, idSecondPlayer: number, gameId: number) {
